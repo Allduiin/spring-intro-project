@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
                     .setParameter("email", email)
                     .uniqueResultOptional();
         } catch (Exception e) {
-            throw new DataProcessingException("Error getting Book by title", e);
+            throw new DataProcessingException("Error getting user by email", e);
         } finally {
             if (session != null) {
                 session.close();
@@ -56,13 +56,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        try (Session session = sessionFactory.openSession()) {
+        Session session = sessionFactory.openSession();
+        try {
             CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(User.class);
             criteriaQuery.from(User.class);
             return session.createQuery(criteriaQuery).list();
         } catch (Exception e) {
-            throw new DataProcessingException("Error retrieving all movies. ", e);
+            throw new DataProcessingException("Error retrieving all users. ", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 }

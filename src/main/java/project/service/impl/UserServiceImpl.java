@@ -12,7 +12,6 @@ import project.service.UserService;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    @Qualifier(value = "userDaoImpl")
     private UserDao userDao;
 
     @Override
