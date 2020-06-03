@@ -40,34 +40,24 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        Session session = sessionFactory.openSession();
-        try {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM users where email =: email")
                     .setParameter("email", email)
                     .uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessingException("Error getting user by email", e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 
     @Override
     public List<User> getAll() {
-        Session session = sessionFactory.openSession();
-        try {
+        try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder()
                     .createQuery(User.class);
             criteriaQuery.from(User.class);
             return session.createQuery(criteriaQuery).list();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving all users. ", e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 }
