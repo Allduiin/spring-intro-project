@@ -9,7 +9,6 @@ import project.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserDao userDao;
 
