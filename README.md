@@ -1,1 +1,3 @@
-"# spring-intro-project" 
+Internet-shop project 
+Main goal of project:
+---
