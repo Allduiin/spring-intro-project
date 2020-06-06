@@ -60,4 +60,15 @@ public class UserDaoImpl implements UserDao {
             throw new DataProcessingException("Error retrieving all users. ", e);
         }
     }
+
+    @Override
+    public Optional<User> getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM users where id =: id")
+                    .setParameter("id", id)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DataProcessingException("Error getting user by email", e);
+        }
+    }
 }
