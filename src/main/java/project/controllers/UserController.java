@@ -25,12 +25,12 @@ public class UserController {
         return "Users was injected";
     }
 
-    @RequestMapping("/get/{userId}")
+    @RequestMapping("/{userId}")
     public UserResponseDto get(@PathVariable Long userId) {
         return getUserDto(userService.getById(userId));
     }
 
-    @RequestMapping("/get/")
+    @RequestMapping("/")
     public List<UserResponseDto> getAll() {
         return userService.getAll()
                 .stream()
@@ -40,7 +40,6 @@ public class UserController {
 
     private UserResponseDto getUserDto(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setPassword(user.getPassword());
         userResponseDto.setEmail(user.getEmail());
         return userResponseDto;
     }
